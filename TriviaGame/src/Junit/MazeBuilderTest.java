@@ -17,6 +17,7 @@ class MazeBuilderTest {
 
 	File file;
 	Maze maze;
+	PrintStream console;
 	
 	@BeforeEach
 	void setUp() throws Exception 
@@ -25,6 +26,7 @@ class MazeBuilderTest {
 		maze = MazeBuilder.buildMaze();
 		file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
+		console = System.out;
 		System.setOut(print);
 	}
 
@@ -49,7 +51,6 @@ class MazeBuilderTest {
 				"*-*-*-*-*-*\n" + 
 				"* | | | | *\n" + 
 				"***********\n";
-		PrintStream console = System.out;
 		System.setOut(console);
 		assertEquals(checkMaze, mazeTest);
 		read.close();

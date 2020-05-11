@@ -19,6 +19,7 @@ class MazeTest {
 	File file;
 	Maze maze;
 	Scanner read;
+	PrintStream console;
 	
 	@BeforeEach
 	void setUp() throws Exception 
@@ -27,6 +28,7 @@ class MazeTest {
 		maze = MazeBuilder.buildMaze();
 		file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
+		console = System.out;
 		System.setOut(print);
 		maze.setPlayerPositionCol(3);
 		maze.setPlayerPositionRow(3);
@@ -48,6 +50,7 @@ class MazeTest {
 		door.close();
 		maze.moveNorth();
 		assertEquals(read.nextLine(), "North Door is Locked");
+		System.setOut(console);
 	}
 	
 	@Test
@@ -65,6 +68,7 @@ class MazeTest {
 		door.close();
 		maze.moveSouth();
 		assertEquals(read.nextLine(), "South Door is Locked");
+		System.setOut(console);
 	}
 
 	@Test
@@ -82,6 +86,7 @@ class MazeTest {
 		door.close();
 		maze.moveEast();
 		assertEquals(read.nextLine(), "East Door is Locked");
+		System.setOut(console);
 	}
 	
 	@Test
@@ -99,5 +104,6 @@ class MazeTest {
 		door.close();
 		maze.moveWest();
 		assertEquals(read.nextLine(), "West Door is Locked");
+		System.setOut(console);
 	}
 }
