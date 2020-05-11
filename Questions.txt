@@ -1,0 +1,92 @@
+True False Questions
+====================================
+
+The word “can’t” is an example of a contraction.
+True
+
+The boiling point of water is 221 degrees F.
+False
+
+Morocco is in Europe.
+False
+
+Kanye West and Kim Kardashian’s children are named North, Saint and Chicago.
+True
+
+The largest planet in our solar system is Neptune.
+False
+
+Nike is the Greek goddess of victory.
+True
+
+Hot water freezes faster than cold water.
+True
+
+There are 88 keys in a piano.
+True
+
+Adolf Hitler was born in Germany.
+True
+
+Dolphins are fish.
+False
+
+Albert Einstein was awarded the Nobel Prize in Physics.
+True
+
+Freeware is software that is available for use at no monetary cost.
+True 
+
+IPv6 Internet Protocol address is represented as eight groups of four Octal digits.
+False
+
+Octal number system contains digits from 0 - 7.
+True
+
+CPU stands for Central Performance Unit.
+False
+
+15 questions
+====================================
+Multiple Choice
+====================================
+The Operating System is a:
+A. System Software
+B. Application Software
+C. Utility Software
+D. Malware
+(A)
+
+Files are organized in:
+A. RAM
+B. Cache
+C. Directories
+D. None of the above
+(C)
+
+Computer Hardware is:
+A. A medium for Data Communications
+B. A Physical device that is driven by data
+C. A Physical device driven by software
+D. All the above
+(D)
+
+Two types of Networks are:
+A. WAN and LAN
+B. LAN and SAT
+C. SAT and WAN
+D. LAN and LAT
+(A)
+
+Backing up of computer data is the process of:
+A. Reversing the files stored on the hard drive
+B. Putting your computer in the back of the room
+C. Storing an extra copy of data on the hard disk
+D. Storing an extra copy on an external storage device
+(D)
+
+5 Questions
+
+
+
+
