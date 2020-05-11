@@ -50,7 +50,7 @@ public class Maze {
 	
 	public void moveEast() {
 		if(this.rooms[playerPositionRow][playerPositionCol].getEast().isClosed())
-			System.out.println("East Door isLocked");
+			System.out.println("East Door is Locked");
 		else {
 			this.playerPositionCol++;
 		}
