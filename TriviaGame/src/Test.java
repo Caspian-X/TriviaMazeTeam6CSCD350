@@ -14,13 +14,5 @@ public class Test
 		maze = MazeBuilder.buildMaze();
 		MazeBuilder.printEntireMaze(maze);
 		
-		File file = new File("tests.txt");
-		PrintStream print = new PrintStream(file);
-		PrintStream console = System.out;
-		System.setOut(print);
-		
-		Room room = new Room();
-		room.initializeRoom();
-		System.out.print(room.toString());
 	}
 }
