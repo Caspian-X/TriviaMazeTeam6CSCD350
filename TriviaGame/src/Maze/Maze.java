@@ -36,6 +36,7 @@ public class Maze {
 		if(this.rooms[playerPositionRow][playerPositionCol].getNorth().isClosed())
 			System.out.println("North Door is Locked");
 		else {
+			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
 			this.playerPositionRow--;
 		}
 	}
@@ -44,6 +45,7 @@ public class Maze {
 		if(this.rooms[playerPositionRow][playerPositionCol].getSouth().isClosed())
 			System.out.println("South Door is Locked");
 		else {
+			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
 			this.playerPositionRow++;
 		}
 	}
@@ -52,6 +54,7 @@ public class Maze {
 		if(this.rooms[playerPositionRow][playerPositionCol].getEast().isClosed())
 			System.out.println("East Door is Locked");
 		else {
+			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
 			this.playerPositionCol++;
 		}
 	}
@@ -60,6 +63,7 @@ public class Maze {
 		if(this.rooms[playerPositionRow][playerPositionCol].getWest().isClosed())
 			System.out.println("West Door is Locked");
 		else {
+			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
 			this.playerPositionCol--;
 		}
 	}
