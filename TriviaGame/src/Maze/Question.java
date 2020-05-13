@@ -23,9 +23,13 @@ public class Question {
 	{
 		for(String answer : questionAnswers)
 		{
-			if(answer.toLowerCase().equals(givenAnswer.toLowerCase()))
+			if(answer.toLowerCase().equals(givenAnswer.toLowerCase())) 
+			{
+				System.out.print("You answered correctly, you may pass.");
 				return true;
+			}
 		}
+		System.out.print("Sorry that is Incorrect. The door is now Locked");
 		return false;
 	}
 }
