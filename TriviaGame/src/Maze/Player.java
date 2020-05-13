@@ -7,11 +7,11 @@ public class Player {
 		
 		Maze maze = MazeBuilder.buildMaze();
 
-		System.out.println(getCurrentRoom(maze));
+		System.out.println(maze.getCurrentRoom());
 		
     	Scanner sc = new Scanner(System.in);
     	
-    	while(!getCurrentRoom(maze).isExit()) {
+    	while(!maze.getCurrentRoom().isExit()) {
     		System.out.println("Move(WASD)");
     		System.out.print("Enter choice:");
 	    	String move = sc.next(); 
@@ -28,16 +28,11 @@ public class Player {
 	    		maze.moveEast();
 	    	else if(move.toLowerCase().equals("p")) //here is the secret button that prints the whole map
 	    		MazeBuilder.printEntireMaze(maze);
-	    	System.out.println(getCurrentRoom(maze));
+	    	System.out.println(maze.getCurrentRoom());
     	}
     	
     	System.out.print("Congrats you have reached the exit");
 		sc.close();
-	}
-	
-	private static Room getCurrentRoom(Maze maze) {
-		return maze.getRooms()[maze.getPlayerPositionRow()][maze.getPlayerPositionCol()];
-	}
-	
+	}	
 	
 }
