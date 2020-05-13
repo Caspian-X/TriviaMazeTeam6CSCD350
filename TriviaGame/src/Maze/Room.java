@@ -3,8 +3,8 @@ package Maze;
 
 public class Room {
 		private Door north, south, east, west;
-		private boolean exit = false, entrance = false;
-			
+		private boolean exit = false, entrance = false, isVisited = false;	
+		
 	public void initializeRoom() {
 			//North
 			this.setNorth(new Door());
@@ -69,6 +69,25 @@ public class Room {
 		public void setEntrance(boolean entrance) {
 			this.entrance = entrance;
 		}
+		
+		public boolean isVisited() {
+			return this.isVisited;
+		}
+		
+		public void setVisited(boolean visited) {
+			this.isVisited = visited;
+		}
+		
+		public String roomStatus() {
+			if(this.entrance)
+				return "I";
+			else if(this.exit)
+				return "E";
+			else if(this.isVisited)
+				return "V";
+			else
+				return " ";	
+		}
 
 		public String toString() {
 			String roomToString;
@@ -86,7 +105,7 @@ public class Room {
 				roomToString +="|";
 
 			//Middle
-			roomToString += " ";
+			roomToString += roomStatus();
 			
 			//East
 			if(this.east.isClosed())
