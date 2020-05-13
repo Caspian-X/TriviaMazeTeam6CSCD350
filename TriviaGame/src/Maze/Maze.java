@@ -31,41 +31,56 @@ public class Maze {
 	public void setPlayerPositionCol(int playerPositionCol) {
 		this.playerPositionCol = playerPositionCol;
 	}
-
+	
+	public Room getCurrentRoom() {
+		return this.rooms[playerPositionRow][playerPositionCol];
+	}
+	
 	public void moveNorth() {
-		if(this.rooms[playerPositionRow][playerPositionCol].getNorth().isClosed())
+		getCurrentRoom().setVisited(true);
+		if(getCurrentRoom().getNorth().isClosed())
 			System.out.println("North Door is Locked");
 		else {
-			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
-			this.playerPositionRow--;
+			if(getCurrentRoom().getWest().answerQuestion())
+				this.playerPositionRow--;
+			else 
+				getCurrentRoom().getNorth().close();
 		}
 	}
 	
 	public void moveSouth() {
-		if(this.rooms[playerPositionRow][playerPositionCol].getSouth().isClosed())
+		getCurrentRoom().setVisited(true);
+		if(getCurrentRoom().getSouth().isClosed())
 			System.out.println("South Door is Locked");
 		else {
-			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
-			this.playerPositionRow++;
+			if(getCurrentRoom().getWest().answerQuestion())
+				this.playerPositionRow++;
+			else 
+				getCurrentRoom().getSouth().close();
 		}
 	}
 	
 	public void moveEast() {
-		if(this.rooms[playerPositionRow][playerPositionCol].getEast().isClosed())
+		getCurrentRoom().setVisited(true);
+		if(getCurrentRoom().getEast().isClosed())
 			System.out.println("East Door is Locked");
 		else {
-			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
-			this.playerPositionCol++;
+			if(getCurrentRoom().getWest().answerQuestion())
+				this.playerPositionCol++;
+			else 
+				getCurrentRoom().getEast().close();
 		}
 	}
 	
 	public void moveWest() {
-		if(this.rooms[playerPositionRow][playerPositionCol].getWest().isClosed())
+		getCurrentRoom().setVisited(true);
+		if(getCurrentRoom().getWest().isClosed())
 			System.out.println("West Door is Locked");
 		else {
-			this.rooms[playerPositionRow][playerPositionCol].setVisited(true);
-			this.playerPositionCol--;
+			if(getCurrentRoom().getWest().answerQuestion())
+				this.playerPositionCol--;
+			else 
+				getCurrentRoom().getWest().close();
 		}
 	}
-	
 }
