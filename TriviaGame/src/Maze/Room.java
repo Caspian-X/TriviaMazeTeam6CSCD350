@@ -8,15 +8,19 @@ public class Room {
 	public void initializeRoom() {
 			//North
 			this.setNorth(new Door());
+			this.north.setQuestion(new Question(null, null));
 			
 			//South
 			this.setSouth(new Door());
+			this.south.setQuestion(new Question(null, null));
 			
 			//East
 			this.setEast(new Door());
+			this.east.setQuestion(new Question(null, null));
 			
 			//West
 			this.setWest(new Door());
+			this.west.setQuestion(new Question(null, null));
 		}
 		
 		public Door getNorth() {

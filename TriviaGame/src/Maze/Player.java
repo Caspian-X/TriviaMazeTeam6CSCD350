@@ -3,13 +3,13 @@ package Maze;
 import java.util.Scanner;
 
 public class Player {
+	public static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
 		Maze maze = MazeBuilder.buildMaze();
 
 		System.out.println(maze.getCurrentRoom());
-		
-    	Scanner sc = new Scanner(System.in);
     	
     	while(!maze.getCurrentRoom().isExit()) {
     		System.out.println("Move(WASD)");

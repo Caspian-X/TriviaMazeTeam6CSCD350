@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Question {
-	private String questionText = "";
+	private String questionText = "Sample Question, Type your answer:";
 	//All question answers will be forced into lower case
 	private ArrayList<String> questionAnswers = new ArrayList<String>();
 	

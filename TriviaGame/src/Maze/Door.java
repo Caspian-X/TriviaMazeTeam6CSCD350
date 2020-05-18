@@ -1,10 +1,8 @@
 package Maze;
 
-import java.util.Scanner;
-
 public class Door {
 	private boolean closed = false;
-	private Question question = generateQuestion();
+	private Question question;
 	
 	public boolean isClosed() {
 		return this.closed;
@@ -17,19 +15,17 @@ public class Door {
 		this.closed = true;
 	}
 	
-	private Question generateQuestion() {
-		return question;
-	}
-	
 	public Question getQuestion() {
 		return this.question;
 	}
 	
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+	
 	public boolean answerQuestion() {
-		Scanner sc = new Scanner(System.in);
 		this.question.PromptQuestion();
-		String answer = sc.next();
-		sc.close();
-		return this.question.CheckAnswer(answer);
+		String answer = Player.sc.next();
+		return true;//this.question.CheckAnswer(answer);
 	}
 }
