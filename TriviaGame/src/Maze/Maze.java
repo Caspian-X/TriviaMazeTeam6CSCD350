@@ -41,7 +41,7 @@ public class Maze {
 		if(getCurrentRoom().getNorth().isClosed())
 			System.out.println("North Door is Locked");
 		else {
-			if(getCurrentRoom().getWest().answerQuestion())
+			if(getCurrentRoom().getNorth().answerQuestion())
 				this.playerPositionRow--;
 			else 
 				getCurrentRoom().getNorth().close();
@@ -53,7 +53,7 @@ public class Maze {
 		if(getCurrentRoom().getSouth().isClosed())
 			System.out.println("South Door is Locked");
 		else {
-			if(getCurrentRoom().getWest().answerQuestion())
+			if(getCurrentRoom().getSouth().answerQuestion())
 				this.playerPositionRow++;
 			else 
 				getCurrentRoom().getSouth().close();
@@ -65,7 +65,7 @@ public class Maze {
 		if(getCurrentRoom().getEast().isClosed())
 			System.out.println("East Door is Locked");
 		else {
-			if(getCurrentRoom().getWest().answerQuestion())
+			if(getCurrentRoom().getEast().answerQuestion())
 				this.playerPositionCol++;
 			else 
 				getCurrentRoom().getEast().close();
