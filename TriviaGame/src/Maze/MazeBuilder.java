@@ -77,7 +77,6 @@ public class MazeBuilder {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				roomSetup[i][j] = new Room();
-				roomSetup[i][j].initializeRoom();
 			}
 		}
 		initiliazeDoors(roomSetup);

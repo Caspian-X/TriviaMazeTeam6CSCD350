@@ -5,6 +5,11 @@ public class Room {
 		private Door north, south, east, west;
 		private boolean exit = false, entrance = false, isVisited = false;	
 		
+	public Room() {
+		initializeRoom();
+	}
+		
+		
 	public void initializeRoom() {
 			//North
 			this.setNorth(new Door());
