@@ -1,15 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import Maze.Maze;
 import Maze.MazeBuilder;
+import Maze.QuestionGenerator;
 import Maze.Room;
 
 public class Test 
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		Scanner input = new Scanner(System.in);
+		QuestionGenerator qg = new QuestionGenerator();
 		Maze maze = new Maze();
 		maze = MazeBuilder.buildMaze();
 		MazeBuilder.printEntireMaze(maze);
@@ -17,10 +21,11 @@ public class Test
 		File file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
 		PrintStream console = System.out;
-		System.setOut(print);
+		//System.setOut(print);
 		
-		Room room = new Room();
-		room.initializeRoom();
-		System.out.print(room.toString());
+		Room room = new Room(qg);
+		System.out.println("Room question test");
+		room.getEast().getQuestion().PromptQuestion();
+		room.getEast().getQuestion().CheckAnswer(input.nextLine());
 	}
 }
