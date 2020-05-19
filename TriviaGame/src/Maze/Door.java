@@ -4,6 +4,11 @@ public class Door {
 	private boolean closed = false;
 	private Question question;
 	
+	public Door()
+	{
+		
+	}
+	
 	public boolean isClosed() {
 		return this.closed;
 	}
