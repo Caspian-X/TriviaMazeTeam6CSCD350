@@ -1,6 +1,8 @@
 package Maze;
 
-public class Door {
+import java.io.Serializable;
+
+public class Door implements Serializable{
 	private boolean closed = false;
 	private Question question;
 	

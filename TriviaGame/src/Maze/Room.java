@@ -1,7 +1,8 @@
 package Maze;
 
+import java.io.Serializable;
 
-public class Room {
+public class Room implements Serializable{
 		private Door north, south, east, west;
 		private boolean exit = false, entrance = false, isVisited = false;	
 		

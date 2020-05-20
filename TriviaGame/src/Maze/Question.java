@@ -1,9 +1,10 @@
 package Maze;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Question {
+public class Question implements Serializable{
 	private String questionText = "Sample Question, Type your answer:";
 	//All question answers will be forced into lower case
 	private ArrayList<String> questionAnswers = new ArrayList<String>();
