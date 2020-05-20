@@ -1,9 +1,10 @@
 package Maze;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
-
-public class Question {
+public class Question implements Serializable{
 	private String questionText = "Sample Question, Type your answer:";
 	//All question answers will be forced into lower case
 	private ArrayList<String> questionAnswers = new ArrayList<String>();
@@ -16,7 +17,7 @@ public class Question {
 	
 	public void PromptQuestion()
 	{
-		System.out.print(questionText);
+		System.out.println(questionText);
 	}
 	
 	public boolean CheckAnswer(String givenAnswer)
@@ -32,4 +33,7 @@ public class Question {
 		System.out.print("Sorry that is Incorrect. The door is now Locked");
 		return false;
 	}
+	
 }
+
+

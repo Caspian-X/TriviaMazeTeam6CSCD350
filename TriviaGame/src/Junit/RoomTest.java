@@ -23,7 +23,6 @@ class RoomTest
 	void setUp() throws Exception 
 	{
 		room = new Room();
-		room.initializeRoom();
 		file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
 		console = System.out;
