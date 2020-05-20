@@ -1,6 +1,8 @@
 package Maze;
 
-public class Maze {
+import java.io.Serializable;
+
+public class Maze implements Serializable{
 	private Room [][] rooms;
 	private int playerPositionRow, playerPositionCol;
 	public Maze() {
