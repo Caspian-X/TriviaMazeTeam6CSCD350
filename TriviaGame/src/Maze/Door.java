@@ -1,6 +1,7 @@
 package Maze;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Door implements Serializable{
 	private boolean closed = false;
@@ -8,7 +9,9 @@ public class Door implements Serializable{
 	
 	public Door()
 	{
-		
+		Random ran = new Random();
+		int r = ran.nextInt(20) + 1;
+		this.question = new Question(r);
 	}
 	
 	public boolean isClosed() {
@@ -33,6 +36,6 @@ public class Door implements Serializable{
 	public boolean answerQuestion() {
 		this.question.PromptQuestion();
 		String answer = Player.sc.next();
-		return true;//this.question.CheckAnswer(answer);
+		return this.question.CheckAnswer(answer);
 	}
 }
