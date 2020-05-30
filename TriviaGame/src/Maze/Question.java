@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Question implements Serializable{
-	private String questionText = "Sample Question, Type your answer:";
+	private String questionText = "";
 	//All question answers will be forced into lower case
-	private ArrayList<String> questionAnswers = new ArrayList<String>();
-	
-	public Question(String question, ArrayList<String> answers)
+	private String questionAnswer = "";
+	public Question(int num)
 	{
-		questionText = question;
-		questionAnswers = answers;
+		SQLiteDB db = new SQLiteDB();
+		this.questionText = db.getQuestion(num);
+		this.questionAnswer = db.getAnswer(num);
 	}
 	
 	public void PromptQuestion()
@@ -22,15 +22,12 @@ public class Question implements Serializable{
 	
 	public boolean CheckAnswer(String givenAnswer)
 	{
-		for(String answer : questionAnswers)
+		if(givenAnswer.toLowerCase().equals(this.questionAnswer.toLowerCase())) 
 		{
-			if(answer.toLowerCase().equals(givenAnswer.toLowerCase())) 
-			{
-				System.out.print("You answered correctly, you may pass.");
-				return true;
-			}
+			System.out.println("You answered correctly, you may pass.");
+			return true;
 		}
-		System.out.print("Sorry that is Incorrect. The door is now Locked");
+		System.out.println("Sorry that is Incorrect. The door is now Locked");
 		return false;
 	}
 	
