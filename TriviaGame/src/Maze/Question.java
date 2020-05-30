@@ -13,6 +13,7 @@ public class Question implements Serializable{
 		SQLiteDB db = new SQLiteDB();
 		this.questionText = db.getQuestion(num);
 		this.questionAnswer = db.getAnswer(num);
+		db.close();
 	}
 	
 	public void PromptQuestion()
