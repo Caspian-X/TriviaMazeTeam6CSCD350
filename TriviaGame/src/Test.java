@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import Maze.Maze;
 import Maze.MazeBuilder;
-import Maze.QuestionGenerator;
 import Maze.Room;
 
 public class Test 
@@ -13,7 +12,6 @@ public class Test
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		Scanner input = new Scanner(System.in);
-		QuestionGenerator qg = new QuestionGenerator();
 		Maze maze = new Maze();
 		maze = MazeBuilder.buildMaze();
 		MazeBuilder.printEntireMaze(maze);
@@ -23,7 +21,7 @@ public class Test
 		PrintStream console = System.out;
 		//System.setOut(print);
 		
-		Room room = new Room(qg);
+		Room room = new Room();
 		System.out.println("Room question test");
 		room.getEast().getQuestion().PromptQuestion();
 		room.getEast().getQuestion().CheckAnswer(input.nextLine());
