@@ -1,7 +1,7 @@
 package Maze;
 
 // The RoomItemHint gives the user a hint on the question they are trying to answer
-public class RoomItemHint 
+public class RoomItemHint implements RoomItem
 {
 	int numOfHints;
 	
