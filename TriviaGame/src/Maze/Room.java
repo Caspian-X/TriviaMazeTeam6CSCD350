@@ -6,28 +6,18 @@ public class Room implements Serializable{
 		private Door north, south, east, west;
 		private boolean exit = false, entrance = false, isVisited = false;	
 		
-	public Room(QuestionGenerator questionGenerator) {
+	public Room() {
 		//North
 		this.setNorth(new Door());
-		this.north.setQuestion(questionGenerator.pickRandomQuestion());
 		
 		//South
 		this.setSouth(new Door());
-		this.south.setQuestion(questionGenerator.pickRandomQuestion());
 		
 		//East
 		this.setEast(new Door());
-		this.east.setQuestion(questionGenerator.pickRandomQuestion());
 		
 		//West
 		this.setWest(new Door());
-		this.west.setQuestion(questionGenerator.pickRandomQuestion());
-	}
-	
-	public Room()
-	{
-		this(new QuestionGenerator());
-		
 	}
 	
 	public Door getNorth() {
