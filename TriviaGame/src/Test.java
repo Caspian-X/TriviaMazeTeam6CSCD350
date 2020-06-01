@@ -16,8 +16,6 @@ public class Test
 		maze = MazeBuilder.buildMaze();
 		MazeBuilder.printEntireMaze(maze);
 		
-<<<<<<< HEAD
-=======
 		File file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
 		PrintStream console = System.out;
@@ -27,6 +25,5 @@ public class Test
 		System.out.println("Room question test");
 		room.getEast().getQuestion().PromptQuestion();
 		room.getEast().getQuestion().CheckAnswer(input.nextLine());
->>>>>>> master
 	}
 }
