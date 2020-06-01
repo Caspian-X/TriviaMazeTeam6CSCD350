@@ -1,10 +1,12 @@
 package Maze;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Room implements Serializable{
 		private Door north, south, east, west;
 		private boolean exit = false, entrance = false, isVisited = false;	
+		private RoomItem generatedItem = null;
 		
 	public Room() {
 		//North
@@ -18,6 +20,15 @@ public class Room implements Serializable{
 		
 		//West
 		this.setWest(new Door());
+		
+		//See if we generate an item (0-9hint,9-19key) 10% chance each
+		Random r = new Random();
+		int rand = r.nextInt(100);
+		if(rand < 10){
+			generatedItem = new RoomItemHint(1);
+		} else if(rand < 20) {
+			generatedItem = new RoomItemKey(1);
+		}
 	}
 	
 	public Door getNorth() {
@@ -112,5 +123,9 @@ public class Room implements Serializable{
 		else
 			roomToString += "*-*\n";
 			return roomToString;
+	}
+	public RoomItem getRoomItem()
+	{
+		return generatedItem;
 	}
 }

@@ -30,7 +30,7 @@ class QuestionTest {
 		System.setOut(print);
 		
 		answers.add("AB");
-		question = new Question("Test Question: ", answers);
+		//question = new Question("Test Question: ", answers);
 	}
 
 	@Test
