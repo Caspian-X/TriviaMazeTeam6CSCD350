@@ -10,14 +10,14 @@ import java.util.Scanner;
 public class Player {
 	public static Scanner sc = new Scanner(System.in);
 	public static String saveFile = "GameSaves.ser";
-	
+
 	public static void main(String[] args) {
 		
 		Maze maze = checkForSaves();	
 
 		System.out.println(maze.getCurrentRoom());
     	
-    	while(!maze.getCurrentRoom().isExit()) {
+    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck()) {
     		System.out.println("Move(WASD)||Save Game:R");
     		System.out.print("Enter choice:");
 	    	String move = sc.next(); 
@@ -34,13 +34,12 @@ public class Player {
 	    		maze.moveEast();
 	    	else if(move.toLowerCase().equals("p")) //here is the secret button that prints the whole map
 	    		MazeBuilder.printEntireMaze(maze);
-	    	else if(move.toLowerCase().equals("r")) {
+	    	else if(move.toLowerCase().equals("r")) 
 	    		saveGame(maze);
-	    	}
 	    	System.out.println(maze.getCurrentRoom());
     	}
-    	
-    	System.out.print("Congrats you have reached the exit");
+    	if(!maze.isPlayerStuck())
+    		System.out.print("Congrats you have reached the exit");
 		sc.close();
 	}	
 	

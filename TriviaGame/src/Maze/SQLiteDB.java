@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class SQLiteDB {
-	Connection c = null;
-	Statement stmt = null;
+	Connection connection = null;
+	Statement statement = null;
 	
 	SQLiteDB(){
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:Questions.sqlite");
+			connection = DriverManager.getConnection("jdbc:sqlite:Questions.sqlite");
 		}catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
@@ -22,13 +22,13 @@ public class SQLiteDB {
 	
 	public String getQuestion(int num) {
 		try {
-			this.stmt = c.createStatement();
-			ResultSet s = stmt.executeQuery("SELECT * FROM Questions where question_number =" + num);
+			this.statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Questions where question_number =" + num);
 			
-			String question = s.getString("question");
+			String question = resultSet.getString("question");
 			
 			for(int i = 1; i < 5; i++) {
-				String choice = s.getString("choice" + i);
+				String choice = resultSet.getString("choice" + i);
 				if(choice.length() > 0) 
 					question = question + "\n" + choice;
 			}
@@ -42,9 +42,9 @@ public class SQLiteDB {
 	
 	public String getAnswer(int num) {
 		try {
-			this.stmt = c.createStatement();
-			ResultSet s = stmt.executeQuery("SELECT answer FROM Questions where question_number =" + num);
-			return s.getString("answer");
+			this.statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT answer FROM Questions where question_number =" + num);
+			return resultSet.getString("answer");
 		}catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}	
@@ -53,7 +53,7 @@ public class SQLiteDB {
 	
 	public void close() {
 		try {
-			c.close();
+			connection.close();
 		}catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
