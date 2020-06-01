@@ -1,13 +1,19 @@
 package Maze;
 
+import java.io.Serializable;
+
 // The RoomItemKey allows the user to unlock a door that has already been locked
-public class RoomItemKey implements RoomItem
+public class RoomItemKey implements RoomItem, Serializable
 {
 	int numOfKeys;
 	
 	public RoomItemKey()
 	{
 		this.numOfKeys = 0;
+	}
+	public RoomItemKey(int numOfKeys)
+	{
+		this.numOfKeys = numOfKeys;
 	}
 	
 	public void addItem()
@@ -30,13 +36,17 @@ public class RoomItemKey implements RoomItem
 	public String toString()
 	{
 		if (this.numOfKeys == 1)
-			return ("You have " + this.numOfKeys + " key\n");
+			return ("This room had " + this.numOfKeys + " key\n");
 		else
-			return ("You have " + this.numOfKeys + " keys\n");
+			return ("This room had " + this.numOfKeys + " keys\n");
 	}
 	
 	public String promptUse()
 	{
 		return ("Would You like to use a key to unlock the door?\n");
+	}
+	@Override
+	public int usesLeft() {
+		return numOfKeys;
 	}
 }

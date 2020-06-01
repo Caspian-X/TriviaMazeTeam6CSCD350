@@ -32,6 +32,11 @@ public class Question implements Serializable{
 		return false;
 	}
 	
+	public String GetAnswer()
+	{
+		return questionAnswer;
+	}
+	
 }
 
 
