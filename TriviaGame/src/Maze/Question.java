@@ -8,11 +8,14 @@ public class Question implements Serializable{
 	private String questionText = "";
 	//All question answers will be forced into lower case
 	private String questionAnswer = "";
+	private String hint = "";
+	
 	public Question(int num)
 	{
 		SQLiteDB db = new SQLiteDB();
 		this.questionText = db.getQuestion(num);
 		this.questionAnswer = db.getAnswer(num);
+		this.hint = db.getHint(num);
 		db.close();
 	}
 	
@@ -34,9 +37,13 @@ public class Question implements Serializable{
 	
 	public String GetAnswer()
 	{
-		return questionAnswer;
+		return this.questionAnswer;
 	}
 	
+	public String GetHint()
+	{
+		return this.hint;
+	}
 }
 
 
