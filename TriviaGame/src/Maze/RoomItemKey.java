@@ -28,8 +28,11 @@ public class RoomItemKey implements RoomItem, Serializable
 	
 	public void unlockDoorWithKey(Door door)
 	{
-		door.open();
-		useItem();
+		if(!door.isBorder()) {
+			door.open();
+			useItem();
+		}else
+			System.out.println("Cannot open Border");
 	}
 	
 	//this method could be called when the user tries to go through a locked door
