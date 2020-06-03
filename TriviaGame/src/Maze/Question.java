@@ -9,7 +9,7 @@ public class Question implements Serializable{
 	//All question answers will be forced into lower case
 	private String questionAnswer = "";
 	private String hint = "";
-	private boolean answeredCorrectly = false;
+	private boolean alreadyAnswered = false;
 	
 	public Question(int num)
 	{
@@ -46,12 +46,12 @@ public class Question implements Serializable{
 		return this.hint;
 	}
 
-	public boolean isAnsweredCorrectly() {
-		return answeredCorrectly;
+	public boolean isAlreadyAnswered() {
+		return alreadyAnswered;
 	}
 
-	public void setAnsweredCorrectly(boolean answeredCorrectly) {
-		this.answeredCorrectly = answeredCorrectly;
+	public void setAlreadyAnswered(boolean alreadyAnswered) {
+		this.alreadyAnswered = alreadyAnswered;
 	}
 }
 
