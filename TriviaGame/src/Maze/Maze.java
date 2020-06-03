@@ -59,8 +59,6 @@ public class Maze implements Serializable{
 	}
 
 	public void setPlayerStuck(boolean isPlayerStuck) {
-		if(isPlayerStuck)
-			System.out.println("No Way Out, You Lose");
 		this.isPlayerStuck = isPlayerStuck;
 	}
 
@@ -123,5 +121,4 @@ public class Maze implements Serializable{
 			}
 		}
 	}
-
 }
