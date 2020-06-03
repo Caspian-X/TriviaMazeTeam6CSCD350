@@ -1,8 +1,6 @@
 package Maze;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Question implements Serializable{
 	private String questionText = "";
