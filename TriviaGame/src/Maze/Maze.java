@@ -95,7 +95,7 @@ public class Maze implements Serializable{
 		else if(direction.toLowerCase().equals("w"))
 			currentDoor = getCurrentRoom().getWest();
 		
-		if(currentDoor.isClosed())
+		if(currentDoor.isClosed()|| currentDoor.isBorder())
 			System.out.println("This Door is Locked");
 		else {
 			if(currentDoor.getQuestion().isAlreadyAnswered())
