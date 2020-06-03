@@ -28,13 +28,6 @@ public class RoomItemHint implements RoomItem, Serializable{
 		this.numOfHints--;
 	}
 	
-	public void giveHint(Question question)
-	{
-		//take away one wrong answer or something
-		//could do something like tell the user that the answer is either A, or B or starts with a certain letter.
-		useItem();
-	}
-	
 	public String toString()
 	{
 		if (this.numOfHints == 1)
@@ -51,5 +44,11 @@ public class RoomItemHint implements RoomItem, Serializable{
 	@Override
 	public int usesLeft() {
 		return numOfHints;
+	}
+
+
+	public void giveHint(Question question) {
+		useItem();
+		System.out.println(question.GetHint());
 	}
 }
