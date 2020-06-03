@@ -101,24 +101,33 @@ public class Room implements Serializable{
 		String roomToString;
 			//North
 		if(this.north.isClosed())
+			roomToString = "*+*\n";
+		else if(this.north.isBorder())
 			roomToString = "***\n";
 		else
 			roomToString = "*-*\n";
 			//West
 		if(this.west.isClosed())
+			roomToString += "+";
+		else if(this.west.isBorder())
 			roomToString += "*";
 		else
 			roomToString +="|";
-			//Middle
+		
+		//Middle
 		roomToString += roomStatus();
 		
 		//East
 		if(this.east.isClosed())
+			roomToString += "+\n";
+		else if(this.east.isBorder())
 			roomToString += "*\n";
 		else
 			roomToString +="|\n";
 			//South
 		if(this.south.isClosed())
+			roomToString += "*+*\n";
+		else if(this.south.isBorder())
 			roomToString += "***\n";
 		else
 			roomToString += "*-*\n";
