@@ -5,9 +5,10 @@ import java.io.Serializable;
 public class Maze implements Serializable{
 	private Room [][] rooms;
 	private int playerPositionRow, playerPositionCol;
+	private boolean isPlayerStuck = false;
 	public RoomItemKey roomKeys;
 	public RoomItemHint roomHints;
-	
+
 	public Maze() {
 		this.playerPositionRow = 0;
 		this.playerPositionCol = 0;
@@ -43,6 +44,26 @@ public class Maze implements Serializable{
 		return this.rooms[playerPositionRow][playerPositionCol];
 	}
 	
+	private boolean allDoorsLocked() {
+		if(getCurrentRoom().getNorth().isClosed() && 
+		   getCurrentRoom().getSouth().isClosed() && 
+		   getCurrentRoom().getEast().isClosed()  && 
+		   getCurrentRoom().getWest().isClosed()) {
+				return true;
+		}
+		return false;
+	}
+
+	public boolean isPlayerStuck() {
+		return isPlayerStuck;
+	}
+
+	public void setPlayerStuck(boolean isPlayerStuck) {
+		if(isPlayerStuck)
+			System.out.println("No Way Out, You Lose");
+		this.isPlayerStuck = isPlayerStuck;
+	}
+
 	public void moveNorth() {
 		getCurrentRoom().setVisited(true);
 		if(getCurrentRoom().getNorth().isClosed())
@@ -50,8 +71,11 @@ public class Maze implements Serializable{
 		else {
 			if(getCurrentRoom().getNorth().answerQuestion())
 				this.playerPositionRow--;
-			else 
+			else {
 				getCurrentRoom().getNorth().close();
+				if(allDoorsLocked()) 
+					setPlayerStuck(true);
+			}
 		}
 	}
 	
@@ -62,8 +86,11 @@ public class Maze implements Serializable{
 		else {
 			if(getCurrentRoom().getSouth().answerQuestion())
 				this.playerPositionRow++;
-			else 
+			else {
 				getCurrentRoom().getSouth().close();
+				if(allDoorsLocked()) 
+					setPlayerStuck(true);
+			}
 		}
 	}
 	
@@ -74,8 +101,11 @@ public class Maze implements Serializable{
 		else {
 			if(getCurrentRoom().getEast().answerQuestion())
 				this.playerPositionCol++;
-			else 
+			else {
 				getCurrentRoom().getEast().close();
+				if(allDoorsLocked()) 
+					setPlayerStuck(true);
+			}
 		}
 	}
 	
@@ -86,8 +116,12 @@ public class Maze implements Serializable{
 		else {
 			if(getCurrentRoom().getWest().answerQuestion())
 				this.playerPositionCol--;
-			else 
+			else {
 				getCurrentRoom().getWest().close();
+				if(allDoorsLocked()) 
+					setPlayerStuck(true);
+			}
 		}
 	}
+
 }

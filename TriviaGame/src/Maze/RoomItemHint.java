@@ -1,10 +1,10 @@
 package Maze;
 
+
 import java.io.Serializable;
 
 // The RoomItemHint gives the user a hint on the question they are trying to answer
-public class RoomItemHint implements RoomItem, Serializable
-{
+public class RoomItemHint implements RoomItem, Serializable{
 	int numOfHints;
 	
 	public RoomItemHint()
@@ -12,6 +12,7 @@ public class RoomItemHint implements RoomItem, Serializable
 		this.numOfHints = 0;
 	}
 	
+
 	public RoomItemHint(int numOfHints)
 	{
 		this.numOfHints = numOfHints;
