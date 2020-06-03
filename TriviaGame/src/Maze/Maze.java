@@ -98,12 +98,18 @@ public class Maze implements Serializable{
 		if(currentDoor.isClosed())
 			System.out.println("This Door is Locked");
 		else {
-			if(currentDoor.answerQuestion())
+			if(currentDoor.getQuestion().isAlreadyAnswered())
 				return true;
 			else {
-				currentDoor.close();
-				if(allDoorsLocked()) 
-					setPlayerStuck(true);
+				if(currentDoor.answerQuestion()) {
+					currentDoor.getQuestion().setAlreadyAnswered(true);
+					return true;	
+				}
+				else {
+					currentDoor.close();
+					if(allDoorsLocked()) 
+						setPlayerStuck(true);
+				}
 			}
 		}
 		return false;
