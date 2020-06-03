@@ -17,7 +17,7 @@ public class Player {
 
 		System.out.println(maze.getCurrentRoom());
     	
-    	while(!maze.getCurrentRoom().isExit()) {
+    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck()) {
     		//check to see if current room has an keys or hints
     		if(maze.getCurrentRoom().getRoomItem() != null){
     			if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemKey && maze.getCurrentRoom().getRoomItem().usesLeft() > 0)
@@ -97,8 +97,8 @@ public class Player {
 	    	}
 	    	System.out.println(maze.getCurrentRoom());
     	}
-    	
-    	System.out.print("Congrats you have reached the exit");
+    	if(!maze.isPlayerStuck())
+    		System.out.print("Congrats you have reached the exit");
 		sc.close();
 	}	
 	
