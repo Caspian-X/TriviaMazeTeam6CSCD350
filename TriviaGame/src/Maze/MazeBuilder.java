@@ -23,8 +23,10 @@ public class MazeBuilder {
 				if(i == 0) {
 					System.out.print("*");
 					
-					if(currentRoom.getNorth().isClosed())
+					if(currentRoom.getNorth().isBorder())
 						System.out.print("*");
+					else if(currentRoom.getNorth().isClosed())
+						System.out.print("+");
 					else
 						System.out.print("-");
 					
@@ -33,15 +35,24 @@ public class MazeBuilder {
 				}
 				//Print Middle
 				else {
-					if(currentRoom.getWest().isClosed())
+					if(j==0)
 						System.out.print("*");
-					else
-						System.out.print("|");
+					else {
+						if(currentRoom.getWest().isBorder())
+							System.out.print("*");
+						else if(currentRoom.getWest().isClosed())
+							System.out.print("+");
+						else
+							System.out.print("|");
+					}
 					
 					System.out.print(currentRoom.roomStatus());
+					
 					if(j==columnToEndAt) {
-						if(currentRoom.getEast().isClosed())
+						if(currentRoom.getEast().isBorder())
 							System.out.print("*");
+						else if(currentRoom.getEast().isClosed())
+							System.out.print("+");
 						else
 							System.out.print("|");
 					}
@@ -55,8 +66,10 @@ public class MazeBuilder {
 		for(int j = columnToStartAt; j < columnToEndAt+1; j++) {
 			System.out.print("*");
 			
-			if(rooms[row][j].getSouth().isClosed())
+			if(rooms[row][j].getSouth().isBorder())
 				System.out.print("*");
+			else if(rooms[row][j].getSouth().isClosed())
+				System.out.print("+");
 			else
 				System.out.print("-");
 			
@@ -114,19 +127,19 @@ public class MazeBuilder {
 		lockAllBorderDoors(roomSetup);
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
+				Room currentRoom = roomSetup[i][j];
 				//Check south close north
-				if(roomSetup[i][j].getSouth().isClosed() && i < 4)
-					roomSetup[i+1][j].getNorth().close();
+				if(i < 4)
+					currentRoom.setSouth(roomSetup[i+1][j].getNorth());
 				//Check east close west
-				if(roomSetup[i][j].getEast().isClosed() && j < 4)
-					roomSetup[i][j+1].getWest().close();
+				if(j < 4)
+					currentRoom.setEast(roomSetup[i][j+1].getWest());
 				//Check north close south
-				if(roomSetup[i][j].getNorth().isClosed() && i > 0)
-					roomSetup[i-1][j].getSouth().close();
+				if(i > 0)
+					currentRoom.setNorth(roomSetup[i-1][j].getSouth());
 				//Check west close east
-				if(roomSetup[i][j].getWest().isClosed() && j > 0)
-					roomSetup[i][j-1].getEast().close();
-				
+				if(j > 0)
+					currentRoom.setWest(roomSetup[i][j-1].getEast());
 			}
 		}
 	}
