@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Door implements Serializable{
 	private boolean closed = false;
+	private boolean isBorder = false;
 	private Question question;
 	
 	public Door()
@@ -21,6 +22,14 @@ public class Door implements Serializable{
 	public void open() {
 		this.closed = false;
 	}
+	public boolean isBorder() {
+		return isBorder;
+	}
+
+	public void setBorder(boolean isBorder) {
+		this.isBorder = isBorder;
+	}
+
 	public void close() {
 		this.closed = true;
 	}
