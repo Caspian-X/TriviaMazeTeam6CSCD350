@@ -17,8 +17,6 @@ public class SQLiteDB {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
-
-	
 	
 	public String getQuestion(int num) {
 		try {
@@ -51,6 +49,18 @@ public class SQLiteDB {
 		return null;
 	}
 	
+	
+	public String getHint(int num) {
+		try {
+			this.statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT hint FROM Questions where question_number =" + num);
+			return resultSet.getString("hint");
+		}catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}	
+		return null;
+	}
+	
 	public void close() {
 		try {
 			connection.close();
@@ -58,6 +68,4 @@ public class SQLiteDB {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
-	
-	
 }
