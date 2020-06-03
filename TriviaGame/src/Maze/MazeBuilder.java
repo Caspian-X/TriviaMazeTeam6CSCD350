@@ -133,10 +133,10 @@ public class MazeBuilder {
 
 	private static void lockAllBorderDoors(Room[][] roomSetup) {
 		for(int i = 0; i < 5; i++) {
-			roomSetup[0][i].getNorth().close();//Top rooms
-			roomSetup[4][i].getSouth().close();//Bottom rooms
-			roomSetup[i][0].getWest().close();//LeftSide rooms
-			roomSetup[i][4].getEast().close();//RightSide rooms
+			roomSetup[0][i].getNorth().setBorder(true);//Top rooms
+			roomSetup[4][i].getSouth().setBorder(true);//Bottom rooms
+			roomSetup[i][0].getWest().setBorder(true);//LeftSide rooms
+			roomSetup[i][4].getEast().setBorder(true);//RightSide rooms
 		}
 	}
 	
