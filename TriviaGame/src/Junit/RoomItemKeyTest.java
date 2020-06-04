@@ -4,20 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Maze.Door;
 import Maze.Question;
+import Maze.RoomItemKey;
 
-class QuestionTest {
+class RoomItemKeyTest {
 
 	Question question;
 	File file;
-	PrintStream console;
 	Scanner read;
+	PrintStream console;
 	
 	@BeforeEach
 	void setUp() throws Exception 
@@ -32,21 +33,22 @@ class QuestionTest {
 	}
 
 	@Test
-	void testPromptQuestion()
+	void testUnlockDoorWithKey() 
 	{
-		question.PromptQuestion();
-		String q = read.nextLine();
-		assertEquals("The word “can’t” is an example of a contraction.(T/F)", q);
+		RoomItemKey key = new RoomItemKey(2);
+		Door door = new Door();
+		door.close();
+		assertTrue(door.isClosed());
+		key.unlockDoorWithKey(door);
+		assertFalse(door.isClosed());
 		
-		System.setOut(console);
-	}
-	
-	@Test
-	void testCheckAnswer() 
-	{
-		assertTrue(question.CheckAnswer("T"));
-		assertTrue(question.CheckAnswer("t"));
-		assertFalse(question.CheckAnswer("f"));
+		assertEquals(key.usesLeft(), 1);
+		
+		door.setBorder(true);
+		key.unlockDoorWithKey(door);
+		String q = read.nextLine();
+		assertEquals(q, "Cannot open Border");
+		assertEquals(key.usesLeft(), 1);
 		
 		System.setOut(console);
 	}

@@ -4,20 +4,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Maze.Question;
+import Maze.RoomItemHint;
 
-class QuestionTest {
-
+class RoomItemHintTest 
+{
 	Question question;
 	File file;
-	PrintStream console;
 	Scanner read;
+	PrintStream console;
 	
 	@BeforeEach
 	void setUp() throws Exception 
@@ -32,21 +32,13 @@ class QuestionTest {
 	}
 
 	@Test
-	void testPromptQuestion()
+	void testGiveHint() 
 	{
-		question.PromptQuestion();
+		RoomItemHint hint = new RoomItemHint(1);
+		hint.giveHint(question);
 		String q = read.nextLine();
-		assertEquals("The word “can’t” is an example of a contraction.(T/F)", q);
-		
-		System.setOut(console);
-	}
-	
-	@Test
-	void testCheckAnswer() 
-	{
-		assertTrue(question.CheckAnswer("T"));
-		assertTrue(question.CheckAnswer("t"));
-		assertFalse(question.CheckAnswer("f"));
+		assertEquals("Not False", q);
+		assertEquals(0, hint.usesLeft());
 		
 		System.setOut(console);
 	}
