@@ -115,7 +115,7 @@ public class Player {
 	private static String printPlayerOptions() {
 		System.out.println("Keys(K) : " + maze.roomKeys.usesLeft());
 		System.out.println("Hints(H) : " + maze.roomHints.usesLeft());
-		System.out.println("Move(WASD)||Save Game:R");
+		System.out.println("Move(WASD)||Save Game:R||Quit:Q");
 		System.out.print("Enter choice:");
 		return sc.next();
 	}
