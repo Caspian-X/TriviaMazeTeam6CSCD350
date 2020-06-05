@@ -10,34 +10,41 @@ import java.util.Scanner;
 public class Player {
 	public static Scanner sc = new Scanner(System.in);
 	public static String saveFile = "GameSaves.ser";
+	private static boolean quit = false;
+	private static Maze maze = null;
 	
 	public static void main(String[] args) {
 		
-		Maze maze = checkForSaves();	
-
-		System.out.println(maze.getCurrentRoom());
-    	
-    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck()) {
-    		//check to see if current room has any keys or hints
-    		checkRoomForKeys(maze);
-    		
-    		String playerResponse = printPlayerOptions(maze);
-    		
-    		playerAction(maze,playerResponse);
-	    	
-	    	System.out.println("\n\n\n\n\n\n");
-	    	
-	    	System.out.println(maze.getCurrentRoom());
-    	}
-    	if(maze.isPlayerStuck())
-    		System.out.println("No Way Out, You Lose");
-    	else
-    		System.out.print("Congrats you have reached the exit");
+		while(maze == null && !quit) {
+			runMenu();
+		}
+		if(maze != null) {
+			System.out.println(maze.getCurrentRoom());
+			
+	    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck() && !quit) {
+	    		//check to see if current room has any keys or hints
+	    		checkRoomForKeys();
+	    		
+	    		String playerResponse = printPlayerOptions();
+	    		
+	    		playerAction(playerResponse);
+		    	
+		    	System.out.println("\n\n\n\n\n\n");
+		    	
+		    	System.out.println(maze.getCurrentRoom());
+	    	}
+	    	if(maze.isPlayerStuck())
+	    		System.out.println("No Way Out, You Lose");
+	    	else if(quit)
+	    		System.out.println("Winners never Quit");
+	    	else
+	    		System.out.print("Congrats you have reached the exit");
+		}
 		sc.close();
 	}	
 	
 	
-	private static void checkRoomForKeys(Maze maze) {
+	private static void checkRoomForKeys() {
 		if(maze.getCurrentRoom().getRoomItem() != null){
 			if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemKey && maze.getCurrentRoom().getRoomItem().usesLeft() > 0)
 			{   				
@@ -55,7 +62,57 @@ public class Player {
 	}
 	
 	
-	private static String printPlayerOptions(Maze maze) {
+	private static String promptScreen(boolean printMenu) {
+		System.out.println(printMenu ? "A.New Game" : "A.Multiple Choice");
+		System.out.println(printMenu ? "B.Load Game" : "B.True/False");
+		System.out.println(printMenu ? "C.Add Questions": "C.Free Response Question");
+		System.out.print(printMenu ? "Q.Quit\n": "");
+		System.out.println(printMenu ? "What would you like to do:" : "What Type of Question would you like to add:");
+		return sc.nextLine();
+	}
+	
+	
+	private static void runMenu() {
+		String menuOption = promptScreen(true);
+		if(menuOption.toLowerCase().equals("a"))
+			maze = MazeBuilder.buildMaze();
+		else if(menuOption.toLowerCase().equals("b"))
+			loadSavedGame();
+		else if(menuOption.toLowerCase().equals("c")) 
+			addQuestion();
+		else if(menuOption.toLowerCase().equals("q"))
+			quit = true;
+	}
+	
+	private static void addQuestion() {
+		String typeOfQuestion = promptScreen(false);
+		
+		String[] question = new String[7];
+	
+		System.out.println("What is the question you would like to add:");
+		question[0] = sc.nextLine();
+		if(typeOfQuestion.toLowerCase().equals("a")) {
+			for(int i = 1; i < 5; i++) {
+				String letter = i == 1 ? "A" : (i == 2 ? "B" : (i == 3 ? "C" : "D"));
+				System.out.println("What would you like to add for option "+ letter + ":");
+				question[i] = letter + "." + sc.nextLine();
+			}
+		}else
+			question[1] = question[2] = question[3] = question[4] = "''";
+		
+		System.out.println("What is the answer" + (typeOfQuestion.toLowerCase().equals("a") ? "(Enter letter correspoding to question EX: A)" : "(For True/False enter just T or F for Answer)"));
+		question[5] = sc.next().toUpperCase();
+		
+		System.out.println("What hint would you like to add:");
+		question[6] = sc.next();
+		
+		SQLiteDB db = new SQLiteDB();
+		db.addQuestion(question);
+		db.close();
+	}
+	
+
+	private static String printPlayerOptions() {
 		System.out.println("Keys(K) : " + maze.roomKeys.usesLeft());
 		System.out.println("Hints(H) : " + maze.roomHints.usesLeft());
 		System.out.println("Move(WASD)||Save Game:R");
@@ -63,7 +120,7 @@ public class Player {
 		return sc.next();
 	}
 	
-	private static void playerAction(Maze maze,String move) {
+	private static void playerAction(String move) {
 		
 		if(move.toLowerCase().equals("w")) 
     		maze.moveNorth();
@@ -74,18 +131,19 @@ public class Player {
     	else if(move.toLowerCase().equals("d"))
     		maze.moveEast();
     	else if(move.toLowerCase().equals("k"))
-    		useKey(maze);	
+    		useKey();	
     	else if(move.toLowerCase().equals("h"))
-    		useHint(maze);	
+    		useHint();	
     	else if(move.toLowerCase().equals("p")) //here is the secret button that prints the whole map
     		MazeBuilder.printEntireMaze(maze);
-    	else if(move.toLowerCase().equals("r")) {
-    		saveGame(maze);
-    	}
+    	else if(move.toLowerCase().equals("r")) 
+    		saveGame();
+    	else if(move.toLowerCase().equals("q"))
+    		quit = true;
 	}
 	
 	
-	private static void useKey(Maze maze) {
+	private static void useKey() {
 		if(maze.roomKeys.usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
@@ -104,7 +162,7 @@ public class Player {
 			System.out.println("You have no keys!");
 	}
 	
-	private static void useHint(Maze maze) {
+	private static void useHint() {
 		if(maze.roomHints.usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
@@ -124,42 +182,31 @@ public class Player {
 	}
 	
 	
-	private static Maze checkForSaves() {
-		
-		Maze maze = MazeBuilder.buildMaze();
-		
-		if(new File(saveFile).exists()) {
-			if(loadGame()) {
-				try{ 
-					// Reading the object from a file 
-					FileInputStream file = new FileInputStream(saveFile); 
-					ObjectInputStream in = new ObjectInputStream(file); 
-					// Method for deserialization of object 
-					maze = (Maze)in.readObject(); 
-					
-					in.close(); 
-					file.close(); 
-					
-					System.out.println("Game Loaded"); 
-					System.out.println("Col = " + maze.getPlayerPositionCol()); 
-					System.out.println("Row = " + maze.getPlayerPositionRow()); 
-				}catch(Exception e) { 
-					e.printStackTrace();
-				}//end catch
-			}//end if
-		}//end if
-		
-		return maze;
+	private static void loadSavedGame() {
+		maze = MazeBuilder.buildMaze();
+		try{ 
+			boolean doesASaveFileExist = new File(saveFile).exists();
+			
+			System.out.println(doesASaveFileExist ? "Loading Game..." : "No Save found.\nStarting New Game...");
+			
+			// Reading the object from a file 
+			FileInputStream file = new FileInputStream(saveFile); 
+			ObjectInputStream in = new ObjectInputStream(file); 
+			// Method for deserialization of object 
+			maze = (Maze)in.readObject(); 
+			
+			in.close(); 
+			file.close(); 
+			
+			System.out.println(doesASaveFileExist ? "Game Loaded" : "Game Ready");
+			System.out.println("Col = " + (maze.getPlayerPositionCol()+1)); 
+			System.out.println("Row = " + (maze.getPlayerPositionRow()+1)); 
+		}catch(Exception e) { 
+			e.printStackTrace();
+		}//end catch
 	}
 	
-	private static boolean loadGame() {
-		System.out.print("Game save found, would you like to load save: Y/N");
-		if(sc.next().toLowerCase().equals("y"))
-			return true;
-		return false;
-	}
-	
-	private static void saveGame(Maze maze) {
+	private static void saveGame() {
 		try {
 			//Saving of object in a file 
 			FileOutputStream file = new FileOutputStream(saveFile); 

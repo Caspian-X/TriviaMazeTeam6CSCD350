@@ -68,4 +68,28 @@ public class SQLiteDB {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+	
+	public void addQuestion(String[] question) {
+		try {
+			this.statement = connection.createStatement();
+			String stringToExecute = "INSERT INTO Questions VALUES(" + (getRowCount()+1) + ",";
+			for(int i = 0; i < question.length; i++) 
+				stringToExecute += "'" + question[i] + "'" +(i < question.length-1 ? "," : ");");
+			statement.executeUpdate(stringToExecute);
+		}catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
+	
+	private int getRowCount() {
+		try {
+			this.statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) as count FROM Questions");
+			return resultSet.getInt("count");
+		}catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		return 0;
+	}
 }
