@@ -92,8 +92,6 @@ public class Room implements Serializable{
 			return "I";
 		else if(this.exit)
 			return "E";
-		else if(this.isVisited)
-			return "V";
 		else
 			return " ";	
 	}

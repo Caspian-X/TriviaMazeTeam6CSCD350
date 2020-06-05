@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import Maze.Maze;
-import Maze.MazeBuilder;
 import Maze.Room;
 
 public class Test 
@@ -12,9 +11,9 @@ public class Test
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		Scanner input = new Scanner(System.in);
-		Maze maze = new Maze();
-		maze = MazeBuilder.buildMaze();
-		MazeBuilder.printEntireMaze(maze);
+		Maze maze = new Maze(5,5);
+		maze.buildMaze();
+		maze.printEntireMaze();
 		
 
 		File file = new File("tests.txt");
