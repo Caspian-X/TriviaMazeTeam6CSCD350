@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import Maze.Door;
 import Maze.Maze;
-import Maze.MazeBuilder;
 import Maze.Room;
 
 class MazeTest {
@@ -24,8 +23,8 @@ class MazeTest {
 	@BeforeEach
 	void setUp() throws Exception 
 	{
-		maze = new Maze();
-		maze = MazeBuilder.buildMaze();
+		maze = new Maze(5,5);
+		maze.buildMaze();
 		file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
 		console = System.out;

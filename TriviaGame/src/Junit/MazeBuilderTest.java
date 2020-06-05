@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Maze.Maze;
-import Maze.MazeBuilder;
 
 class MazeBuilderTest {
 
@@ -22,8 +21,8 @@ class MazeBuilderTest {
 	@BeforeEach
 	void setUp() throws Exception 
 	{
-		maze = new Maze();
-		maze = MazeBuilder.buildMaze();
+		maze = new Maze(5,5);
+		maze.buildMaze();
 		file = new File("tests.txt");
 		PrintStream print = new PrintStream(file);
 		console = System.out;
@@ -33,7 +32,7 @@ class MazeBuilderTest {
 	@Test
 	void testBuildMaze() throws FileNotFoundException 
 	{
-		MazeBuilder.printEntireMaze(maze);
+		maze.printEntireMaze();
 		Scanner read = new Scanner(file);
 		String mazeTest = "";
 		while (read.hasNextLine())

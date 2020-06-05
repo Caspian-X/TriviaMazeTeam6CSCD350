@@ -74,8 +74,10 @@ public class Player {
 	
 	private static void runMenu() {
 		String menuOption = promptScreen(true);
-		if(menuOption.toLowerCase().equals("a"))
-			maze = MazeBuilder.buildMaze();
+		if(menuOption.toLowerCase().equals("a")) {
+			maze = new Maze(5,5);
+			maze.buildMaze();
+		}
 		else if(menuOption.toLowerCase().equals("b"))
 			loadSavedGame();
 		else if(menuOption.toLowerCase().equals("c")) 
@@ -135,7 +137,7 @@ public class Player {
     	else if(move.toLowerCase().equals("h"))
     		useHint();	
     	else if(move.toLowerCase().equals("p")) //here is the secret button that prints the whole map
-    		MazeBuilder.printEntireMaze(maze);
+    		maze.printEntireMaze();
     	else if(move.toLowerCase().equals("r")) 
     		saveGame();
     	else if(move.toLowerCase().equals("q"))
@@ -183,24 +185,28 @@ public class Player {
 	
 	
 	private static void loadSavedGame() {
-		maze = MazeBuilder.buildMaze();
 		try{ 
-			boolean doesASaveFileExist = new File(saveFile).exists();
-			
-			System.out.println(doesASaveFileExist ? "Loading Game..." : "No Save found.\nStarting New Game...");
-			
-			// Reading the object from a file 
-			FileInputStream file = new FileInputStream(saveFile); 
-			ObjectInputStream in = new ObjectInputStream(file); 
-			// Method for deserialization of object 
-			maze = (Maze)in.readObject(); 
-			
-			in.close(); 
-			file.close(); 
-			
-			System.out.println(doesASaveFileExist ? "Game Loaded" : "Game Ready");
-			System.out.println("Col = " + (maze.getPlayerPositionCol()+1)); 
-			System.out.println("Row = " + (maze.getPlayerPositionRow()+1)); 
+			maze = new Maze(5,5);
+			if(new File(saveFile).exists()) {
+				System.out.println("Loading Game...");
+				
+				// Reading the object from a file 
+				FileInputStream file = new FileInputStream(saveFile); 
+				ObjectInputStream in = new ObjectInputStream(file); 
+				// Method for deserialization of object 
+				maze = (Maze)in.readObject(); 
+				
+				in.close(); 
+				file.close(); 
+				
+				System.out.println("Game Loaded");
+				System.out.println("Row = " + (maze.getPlayerPositionRow()+1));
+				System.out.println("Col = " + (maze.getPlayerPositionCol()+1));
+			}else {
+				System.out.println("No Save found.\nStarting New Game...");
+				maze.buildMaze(); 
+				System.out.println("Game Ready");
+			}
 		}catch(Exception e) { 
 			e.printStackTrace();
 		}//end catch
@@ -219,8 +225,8 @@ public class Player {
 			file.close(); 
 			
 			System.out.println("Game Saved"); 
-			System.out.println("Col = " + maze.getPlayerPositionCol()); 
 			System.out.println("Row = " + maze.getPlayerPositionRow()); 
+			System.out.println("Col = " + maze.getPlayerPositionCol());
 		}catch(Exception e) { 
 			e.printStackTrace();
 		} 
