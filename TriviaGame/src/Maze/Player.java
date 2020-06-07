@@ -19,19 +19,27 @@ public class Player {
 			runMenu();
 		}
 		if(maze != null) {
-			System.out.println(maze.getCurrentRoom());
 			
 	    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck() && !quit) {
 	    		//check to see if current room has any keys or hints
 	    		checkRoomForKeys();
 	    		
-	    		String playerResponse = printPlayerOptions();
+	    		String playerResponse = "";
 	    		
-	    		playerAction(playerResponse);
+	    		boolean success = true;
+	    		do
+	    		{
+	    			if (success == false)
+	    			{
+	    				System.out.println(maze.getCurrentRoom());
+	    				playerResponse = printPlayerOptions();
+	    				System.out.print("\n");
+	    			}
+	    			success = playerAction(playerResponse);
+	    		} while(success == false);
 		    	
-		    	System.out.println("\n\n\n\n\n\n");
+		    	System.out.println("\n");
 		    	
-		    	System.out.println(maze.getCurrentRoom());
 	    	}
 	    	if(maze.isPlayerStuck())
 	    		System.out.println("No Way Out, You Lose");
@@ -122,7 +130,9 @@ public class Player {
 		return sc.next();
 	}
 	
-	private static void playerAction(String move) {
+	private static boolean playerAction(String move) {
+		
+		boolean success = true;
 		
 		if(move.toLowerCase().equals("w")) 
     		maze.moveNorth();
@@ -142,6 +152,10 @@ public class Player {
     		saveGame();
     	else if(move.toLowerCase().equals("q"))
     		quit = true;
+    	else
+    		success = false;
+		
+		return success;
 	}
 	
 	
