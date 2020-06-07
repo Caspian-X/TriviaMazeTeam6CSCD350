@@ -1,1 +1,5 @@
-Test Question: 
+Computer Hardware is:
+A. A medium for Data Communications
+B. A Physical device that is driven by data
+C. A Physical device driven by software
+D. All the above
