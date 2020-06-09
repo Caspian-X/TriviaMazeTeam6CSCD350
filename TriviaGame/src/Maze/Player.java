@@ -125,10 +125,10 @@ public class Player
 			question[1] = question[2] = question[3] = question[4] = "''";
 		
 		System.out.println("What is the answer" + (typeOfQuestion.toLowerCase().equals("a") ? "(Enter letter correspoding to question EX: A)" : "(For True/False enter just T or F for Answer)"));
-		question[5] = sc.next().toUpperCase();
+		question[5] = sc.nextLine().toUpperCase();
 		
 		System.out.println("What hint would you like to add:");
-		question[6] = sc.next();
+		question[6] = sc.nextLine();
 		
 		SQLiteDB db = new SQLiteDB();
 		db.addQuestion(question);
