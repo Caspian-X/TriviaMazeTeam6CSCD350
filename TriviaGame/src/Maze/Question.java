@@ -1,3 +1,4 @@
+//Written By:Igor Svirgun
 package Maze;
 
 import java.io.Serializable;

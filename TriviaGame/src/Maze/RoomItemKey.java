@@ -1,3 +1,5 @@
+//written by: Isaiah Weaver
+
 package Maze;
 
 import java.io.Serializable;
