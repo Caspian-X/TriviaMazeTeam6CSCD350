@@ -44,11 +44,13 @@ public class Question implements Serializable{
 		return this.hint;
 	}
 
-	public boolean isAlreadyAnswered() {
+	public boolean isAlreadyAnswered() 
+	{
 		return alreadyAnswered;
 	}
 
-	public void setAlreadyAnswered(boolean alreadyAnswered) {
+	public void setAlreadyAnswered(boolean alreadyAnswered) 
+	{
 		this.alreadyAnswered = alreadyAnswered;
 	}
 }
