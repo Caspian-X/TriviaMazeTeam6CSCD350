@@ -59,12 +59,12 @@ public class Player {
 				RoomItemKey roomKey = (RoomItemKey)maze.getCurrentRoom().getRoomItem();
 				System.out.println(roomKey.toString());
 				roomKey.useItem();
-				maze.roomKeys.addItem();
+				maze.getRoomKeys().addItem();
 			} else if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemHint && maze.getCurrentRoom().getRoomItem().usesLeft() > 0) {
 				RoomItemHint roomHint = (RoomItemHint)maze.getCurrentRoom().getRoomItem();
 				System.out.println(roomHint.toString());
 				roomHint.useItem();
-				maze.roomHints.addItem();
+				maze.getRoomHints().addItem();
 			}
 		}
 	}
@@ -123,8 +123,8 @@ public class Player {
 	
 
 	private static String printPlayerOptions() {
-		System.out.println("Keys(K) : " + maze.roomKeys.usesLeft());
-		System.out.println("Hints(H) : " + maze.roomHints.usesLeft());
+		System.out.println("Keys(K) : " + maze.getRoomKeys().usesLeft());
+		System.out.println("Hints(H) : " + maze.getRoomHints().usesLeft());
 		System.out.println("Move(WASD)||Save Game:R||Quit:Q");
 		System.out.print("Enter choice:");
 		return sc.next();
@@ -160,38 +160,38 @@ public class Player {
 	
 	
 	private static void useKey() {
-		if(maze.roomKeys.usesLeft() > 0)
+		if(maze.getRoomKeys().usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
 			System.out.print("Which door would you like to unlock?(WASD):");
     		String doorToUnlock = sc.next(); 
     		if(doorToUnlock.toLowerCase().equals("w")) 
-	    		maze.roomKeys.unlockDoorWithKey(maze.getCurrentRoom().getNorth());
+	    		maze.getRoomKeys().unlockDoorWithKey(maze.getCurrentRoom().getNorth());
 	    	else if(doorToUnlock.toLowerCase().equals("a"))
-	    		maze.roomKeys.unlockDoorWithKey(maze.getCurrentRoom().getWest());
+	    		maze.getRoomKeys().unlockDoorWithKey(maze.getCurrentRoom().getWest());
 	    	else if(doorToUnlock.toLowerCase().equals("s"))
-	    		maze.roomKeys.unlockDoorWithKey(maze.getCurrentRoom().getSouth());
+	    		maze.getRoomKeys().unlockDoorWithKey(maze.getCurrentRoom().getSouth());
 	    	else if(doorToUnlock.toLowerCase().equals("d"))
-	    		maze.roomKeys.unlockDoorWithKey(maze.getCurrentRoom().getEast());
+	    		maze.getRoomKeys().unlockDoorWithKey(maze.getCurrentRoom().getEast());
 		}
 		else
 			System.out.println("You have no keys!");
 	}
 	
 	private static void useHint() {
-		if(maze.roomHints.usesLeft() > 0)
+		if(maze.getRoomHints().usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
 			System.out.print("Which door would you like to use a hint on?(WASD):");
     		String doorToUnlock = sc.next(); 
     		if(doorToUnlock.toLowerCase().equals("w")) 
-	    		maze.roomHints.giveHint(maze.getCurrentRoom().getNorth().getQuestion());
+	    		maze.getRoomHints().giveHint(maze.getCurrentRoom().getNorth().getQuestion());
 	    	else if(doorToUnlock.toLowerCase().equals("a"))
-	    		maze.roomHints.giveHint(maze.getCurrentRoom().getWest().getQuestion());
+	    		maze.getRoomHints().giveHint(maze.getCurrentRoom().getWest().getQuestion());
 	    	else if(doorToUnlock.toLowerCase().equals("s"))
-	    		maze.roomHints.giveHint(maze.getCurrentRoom().getSouth().getQuestion());
+	    		maze.getRoomHints().giveHint(maze.getCurrentRoom().getSouth().getQuestion());
 	    	else if(doorToUnlock.toLowerCase().equals("d"))
-	    		maze.roomHints.giveHint(maze.getCurrentRoom().getEast().getQuestion());
+	    		maze.getRoomHints().giveHint(maze.getCurrentRoom().getEast().getQuestion());
 		}
 		else
 			System.out.println("You have no hints!");

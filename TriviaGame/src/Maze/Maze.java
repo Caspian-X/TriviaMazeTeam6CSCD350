@@ -7,8 +7,8 @@ public class Maze implements Serializable{
 	private Room [][] rooms;
 	private int playerPositionRow, playerPositionCol;
 	private boolean isPlayerStuck = false;
-	public RoomItemKey roomKeys;
-	public RoomItemHint roomHints;
+	private RoomItemKey roomKeys;
+	private RoomItemHint roomHints;
 
 	public Maze(int rows, int columns) {
 		this.rooms = new Room[rows][columns];
@@ -52,6 +52,14 @@ public class Maze implements Serializable{
 
 	public void setPlayerStuck(boolean isPlayerStuck) {
 		this.isPlayerStuck = isPlayerStuck;
+	}
+
+	public RoomItemKey getRoomKeys() {
+		return roomKeys;
+	}
+
+	public RoomItemHint getRoomHints() {
+		return roomHints;
 	}
 
 	public void moveNorth() {
