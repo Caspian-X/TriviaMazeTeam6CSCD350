@@ -24,7 +24,7 @@ public class Player
 		}
 		if(maze != null) 
 		{
-			
+	
 	    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck() && !quit) 
 	    	{
 	    		checkRoomForKeys();
@@ -101,8 +101,10 @@ public class Player
 			loadSavedGame();
 		else if(menuOption.toLowerCase().equals("c")) 
 			addQuestion();
-		else if(menuOption.toLowerCase().equals("q"))
+		else if(menuOption.toLowerCase().equals("q")) {
 			quit = true;
+			System.out.println("Quitting...");
+		}
 	}
 	
 	private static void addQuestion() 
