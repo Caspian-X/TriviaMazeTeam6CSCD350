@@ -1,3 +1,4 @@
+//Written By:Igor Svirgun
 package Maze;
 
 import java.io.Serializable;
@@ -12,7 +13,9 @@ public class Door implements Serializable
 	public Door()
 	{
 		Random ran = new Random();
-		int r = ran.nextInt(20) + 1;
+		SQLiteDB db = new SQLiteDB();
+		int r = ran.nextInt(db.getRowCount()) + 1;
+		db.close();
 		this.question = new Question(r);
 	}
 	

@@ -104,7 +104,7 @@ public class SQLiteDB
 	}
 	
 	
-	private int getRowCount() 
+	public int getRowCount() 
 	{
 		try 
 		{
