@@ -1,14 +1,17 @@
+//Written By:Igor Svirgun
 package Maze;
 
 import java.io.Serializable;
 import java.util.Random;
 
-public class Room implements Serializable{
+public class Room implements Serializable
+{
 		private Door north, south, east, west;
 		private boolean exit = false, entrance = false, isVisited = false;	
 		private RoomItem generatedItem = null;
 		
-	public Room() {
+	public Room() 
+	{
 		//North
 		this.setNorth(new Door());
 		
@@ -24,70 +27,84 @@ public class Room implements Serializable{
 		//See if we generate an item (0-9hint,9-19key) 10% chance each
 		Random r = new Random();
 		int rand = r.nextInt(100);
-		if(rand < 10){
+		if(rand < 10)
 			generatedItem = new RoomItemHint(1);
-		} else if(rand < 20) {
+		else if(rand < 20)
 			generatedItem = new RoomItemKey(1);
-		}
 	}
 	
-	public Door getNorth() {
+	public Door getNorth() 
+	{
 		return this.north;
 	}
 	
-	public void setNorth(Door door) {
+	public void setNorth(Door door) 
+	{
 		this.north = door;
 	}
 	
-	public Door getSouth() {
+	public Door getSouth() 
+	{
 		return this.south;
 	}
 	
-	public void setSouth(Door door) {
+	public void setSouth(Door door) 
+	{
 		this.south = door;
 	}
 	
-	public Door getEast() {
+	public Door getEast() 
+	{
 		return this.east;
 	}
 	
-	public void setEast(Door door) {
+	public void setEast(Door door) 
+	{
 		this.east = door;
 	}
 	
-	public Door getWest() {
+	public Door getWest() 
+	{
 		return this.west;
 	}
 	
-	public void setWest(Door door) {
+	public void setWest(Door door) 
+	{
 		this.west = door;
 	}
 	
-	public boolean isExit() {
+	public boolean isExit() 
+	{
 		return exit;
 	}
 
-	public void setExit(boolean exit) {
+	public void setExit(boolean exit) 
+	{
 		this.exit = exit;
 	}
 
-	public boolean isEntrance() {
+	public boolean isEntrance() 
+	{
 		return entrance;
 	}
 
-	public void setEntrance(boolean entrance) {
+	public void setEntrance(boolean entrance) 
+	{
 		this.entrance = entrance;
 	}
 	
-	public boolean isVisited() {
+	public boolean isVisited() 
+	{
 		return this.isVisited;
 	}
 	
-	public void setVisited(boolean visited) {
+	public void setVisited(boolean visited) 
+	{
 		this.isVisited = visited;
 	}
 	
-	public String roomStatus() {
+	public String roomStatus()
+	{
 		if(this.entrance)
 			return "I";
 		else if(this.exit)
@@ -95,16 +112,18 @@ public class Room implements Serializable{
 		else
 			return " ";	
 	}
-	public String toString() {
+	public String toString() 
+	{
 		String roomToString;
-			//North
+		//North
 		if(this.north.isClosed())
 			roomToString = "*+*\n";
 		else if(this.north.isBorder())
 			roomToString = "***\n";
 		else
 			roomToString = "*-*\n";
-			//West
+		
+		//West
 		if(this.west.isClosed())
 			roomToString += "+";
 		else if(this.west.isBorder())
@@ -122,14 +141,16 @@ public class Room implements Serializable{
 			roomToString += "*\n";
 		else
 			roomToString +="|\n";
-			//South
+		
+		//South
 		if(this.south.isClosed())
 			roomToString += "*+*\n";
 		else if(this.south.isBorder())
 			roomToString += "***\n";
 		else
 			roomToString += "*-*\n";
-			return roomToString;
+		
+		return roomToString;
 	}
 	public RoomItem getRoomItem()
 	{

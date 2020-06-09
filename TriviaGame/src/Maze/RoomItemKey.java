@@ -49,7 +49,8 @@ public class RoomItemKey implements RoomItem, Serializable
 		return ("Would You like to use a key to unlock the door?\n");
 	}
 	@Override
-	public int usesLeft() {
+	public int usesLeft() 
+	{
 		return numOfKeys;
 	}
 }

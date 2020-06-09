@@ -1,16 +1,19 @@
+//Written By:Igor Svirgun
 package Maze;
 
 import java.io.Serializable;
 import java.util.Random;
 
-public class Maze implements Serializable{
+public class Maze implements Serializable
+{
 	private Room [][] rooms;
 	private int playerPositionRow, playerPositionCol;
 	private boolean isPlayerStuck = false;
 	private RoomItemKey roomKeys;
 	private RoomItemHint roomHints;
 
-	public Maze(int rows, int columns) {
+	public Maze(int rows, int columns) 
+	{
 		this.rooms = new Room[rows][columns];
 		this.playerPositionRow = 0;
 		this.playerPositionCol = 0;
@@ -18,72 +21,88 @@ public class Maze implements Serializable{
 		roomHints = new RoomItemHint();
 	}
 	
-	public Room[][] getRooms(){
+	public Room[][] getRooms()
+	{
 		return rooms;
 	}
 	
-	public void setRooms(Room[][] rooms) {
+	public void setRooms(Room[][] rooms) 
+	{
 		this.rooms = rooms;
 	}
 	
-	public int getPlayerPositionRow() {
+	public int getPlayerPositionRow() 
+	{
 		return playerPositionRow;
 	}
 
-	public void setPlayerPositionRow(int playerPositionRow) {
+	public void setPlayerPositionRow(int playerPositionRow) 
+	{
 		this.playerPositionRow = playerPositionRow;
 	}
 
-	public int getPlayerPositionCol() {
+	public int getPlayerPositionCol() 
+	{
 		return playerPositionCol;
 	}
 
-	public void setPlayerPositionCol(int playerPositionCol) {
+	public void setPlayerPositionCol(int playerPositionCol) 
+	{
 		this.playerPositionCol = playerPositionCol;
 	}
 	
-	public Room getCurrentRoom() {
+	public Room getCurrentRoom() 
+	{
 		return this.rooms[playerPositionRow][playerPositionCol];
 	}
 
-	public boolean isPlayerStuck() {
+	public boolean isPlayerStuck() 
+	{
 		return isPlayerStuck;
 	}
 
-	public void setPlayerStuck(boolean isPlayerStuck) {
+	public void setPlayerStuck(boolean isPlayerStuck) 
+	{
 		this.isPlayerStuck = isPlayerStuck;
 	}
 
-	public RoomItemKey getRoomKeys() {
+	public RoomItemKey getRoomKeys() 
+	{
 		return roomKeys;
 	}
 
-	public RoomItemHint getRoomHints() {
+	public RoomItemHint getRoomHints() 
+	{
 		return roomHints;
 	}
 
-	public void moveNorth() {
+	public void moveNorth() 
+	{
 		if(move("n"))
 			this.playerPositionRow--;
 	}
 	
-	public void moveSouth() {
+	public void moveSouth() 
+	{
 		if(move("s"))
 			this.playerPositionRow++;
 	}
 	
-	public void moveEast() {
+	public void moveEast() 
+	{
 		if(move("e"))
 			this.playerPositionCol++;
 	}
 	
-	public void moveWest() {
+	public void moveWest() 
+	{
 		if(move("w"))
 			this.playerPositionCol--;
 	}
 	
 	
-	private boolean move(String direction) {
+	private boolean move(String direction) 
+	{
 		Door currentDoor = null;
 		if(direction.toLowerCase().equals("n"))
 			currentDoor = getCurrentRoom().getNorth();
@@ -96,15 +115,19 @@ public class Maze implements Serializable{
 		
 		if(currentDoor.isClosed()|| currentDoor.isBorder())
 			System.out.println("This Door is Locked");
-		else {
+		else 
+		{
 			if(currentDoor.getQuestion().isAlreadyAnswered())
 				return true;
-			else {
-				if(currentDoor.answerQuestion()) {
+			else 
+			{
+				if(currentDoor.answerQuestion()) 
+				{
 					currentDoor.getQuestion().setAlreadyAnswered(true);
 					return true;	
 				}
-				else {
+				else 
+				{
 					currentDoor.close();
 					if(!mazeCanBeTraversed(this.rooms)) 
 						setPlayerStuck(true);
@@ -115,55 +138,60 @@ public class Maze implements Serializable{
 	}
 	
 	
-	private boolean mazeCanBeTraversed(Room[][] rooms) {
+	private boolean mazeCanBeTraversed(Room[][] rooms) 
+	{
 		boolean result = mazeCanBeTraversed(this.playerPositionRow,this.playerPositionCol);
 		resetAllRoomsToNotVisited();
 		return result;
 	}
 	
-	private void resetAllRoomsToNotVisited() {
-		for(int i = 0; i < this.rooms.length; i++) {
-			for(int j = 0; j < this.rooms[0].length; j++) {
+	private void resetAllRoomsToNotVisited() 
+	{
+		for(int i = 0; i < this.rooms.length; i++) 
+		{
+			for(int j = 0; j < this.rooms[0].length; j++) 
+			{
 				this.rooms[i][j].setVisited(false);
 			}
 		}
 		
 	}
 
-	private boolean mazeCanBeTraversed(int row, int col) {
-		if(isValidRoom(row,col)) {
+	private boolean mazeCanBeTraversed(int row, int col) 
+	{
+		if(isValidRoom(row,col)) 
+		{
 			if(this.rooms[row][col].isExit())
 				return true;
-			else {
+			else 
+			{
 				this.rooms[row][col].setVisited(true);
-				if(canEnter(row,col,"S")) {
+				if(canEnter(row,col,"S")) 
 					if(mazeCanBeTraversed(row+1,col))
 						return true;
-					}
-				if(canEnter(row,col,"E")) { 
+				if(canEnter(row,col,"E"))  
 					if(mazeCanBeTraversed(row,col+1))
 						return true;
-					}
-				if(canEnter(row,col,"N")) {
+				if(canEnter(row,col,"N")) 
 					if(mazeCanBeTraversed(row-1,col))
 						return true;
-					}
-				if(canEnter(row,col,"W")) {
+				if(canEnter(row,col,"W")) 
 					if(mazeCanBeTraversed(row,col-1))
 						return true;
-					}
 			}
 		}	
 		return false;
 	}
 	
-	private boolean isValidRoom(int row, int col) {
+	private boolean isValidRoom(int row, int col) 
+	{
 		if(row > this.rooms.length-1 || row < 0 || col > this.rooms[row].length-1 || col < 0)
 			return false;
 		return true;
 	}
 	
-	private boolean canEnter(int row,int col, String door) {
+	private boolean canEnter(int row,int col, String door) 
+	{
 
 		Room room = this.rooms[row][col];
 		if(door.equals("S"))
@@ -190,21 +218,27 @@ public class Maze implements Serializable{
 	}
 	
 	
-	public void printEntireMaze() {
-		for(int i = 0; i < 5; i++) {
+	public void printEntireMaze() 
+	{
+		for(int i = 0; i < 5; i++) 
+		{
 			printRow(i,0,4);
 			if(i == 4)
 				printBottomRow(i,0,4);
 		}
 	}
 	
-	public void printRow(int row,int columnToStartAt, int columnToEndAt) {
-		for(int i = 0; i < 2; i++) {
-			for(int j = columnToStartAt; j < columnToEndAt+1; j++) {
+	public void printRow(int row,int columnToStartAt, int columnToEndAt) 
+	{
+		for(int i = 0; i < 2; i++) 
+		{
+			for(int j = columnToStartAt; j < columnToEndAt+1; j++) 
+			{
 				Room currentRoom = this.rooms[row][j];
 				
 				//Print Top
-				if(i == 0) {
+				if(i == 0) 
+				{
 					System.out.print("*");
 					
 					if(currentRoom.getNorth().isBorder())
@@ -218,7 +252,8 @@ public class Maze implements Serializable{
 						System.out.print("*");
 				}
 				//Print Middle
-				else {
+				else 
+				{
 					if(j==0)
 						System.out.print("*");
 					else {
@@ -236,7 +271,8 @@ public class Maze implements Serializable{
 							middle = "O";
 					System.out.print(middle);
 					
-					if(j==columnToEndAt) {
+					if(j==columnToEndAt) 
+					{
 						if(currentRoom.getEast().isBorder())
 							System.out.print("*");
 						else if(currentRoom.getEast().isClosed())
@@ -250,8 +286,10 @@ public class Maze implements Serializable{
 		}
 	}
 	
-	public void printBottomRow(int row,int columnToStartAt, int columnToEndAt) {
-		for(int j = columnToStartAt; j < columnToEndAt+1; j++) {
+	public void printBottomRow(int row,int columnToStartAt, int columnToEndAt) 
+	{
+		for(int j = columnToStartAt; j < columnToEndAt+1; j++) 
+		{
 			System.out.print("*");
 			
 			if(this.rooms[row][j].getSouth().isBorder())
@@ -267,13 +305,17 @@ public class Maze implements Serializable{
 		System.out.println();
 	}
 		
-	public void buildMaze() {
+	public void buildMaze() 
+	{
 		initiliazeRooms();
 	}
 
-	private void initiliazeRooms() {
-		for (int i = 0; i < this.rooms.length; i++) {
-			for (int j = 0; j < this.rooms[0].length; j++) {
+	private void initiliazeRooms() 
+	{
+		for (int i = 0; i < this.rooms.length; i++) 
+		{
+			for (int j = 0; j < this.rooms[0].length; j++) 
+			{
 				this.rooms[i][j] = new Room();
 			}
 		}
@@ -281,10 +323,10 @@ public class Maze implements Serializable{
 		setExitAndEntrance();
 	}
 	
-	private void setExitAndEntrance() {
+	private void setExitAndEntrance() 
+	{
 		Random ran = new Random();
 		
-		//Setup Entrance
 		int entranceColumn = ran.nextInt(5);
 		int entranceRow = ran.nextInt(5);
 		
@@ -292,25 +334,30 @@ public class Maze implements Serializable{
 		this.playerPositionRow = entranceRow;
 		this.playerPositionCol = entranceColumn;
 
-		//Setup Exit
 		int exitColumn = ran.nextInt(5);
 		int exitRow = ran.nextInt(5);
-		if(this.rooms[exitRow][exitColumn].isEntrance()) {
-			while(this.rooms[exitRow][exitColumn].isEntrance()) {
+		if(this.rooms[exitRow][exitColumn].isEntrance()) 
+		{
+			while(this.rooms[exitRow][exitColumn].isEntrance()) 
+			{
 				exitColumn = ran.nextInt(5);
 				exitRow = ran.nextInt(5);
 			}
 			this.rooms[exitRow][exitColumn].setExit(true);
-		}else {
+		}else 
+		{
 			this.rooms[exitRow][exitColumn].setExit(true);
 		}
 		
 	}
 	
-	private void initiliazeDoors() {
+	private void initiliazeDoors() 
+	{
 		lockAllBorderDoors();
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < 5; i++) 
+		{
+			for (int j = 0; j < 5; j++) 
+			{
 				Room currentRoom = this.rooms[i][j];
 				//Check south close north
 				if(i < 4)
@@ -328,8 +375,10 @@ public class Maze implements Serializable{
 		}
 	}
 
-	private void lockAllBorderDoors() {
-		for(int i = 0; i < 5; i++) {
+	private void lockAllBorderDoors() 
+	{
+		for(int i = 0; i < 5; i++) 
+		{
 			this.rooms[0][i].getNorth().setBorder(true);//Top rooms
 			this.rooms[4][i].getSouth().setBorder(true);//Bottom rooms
 			this.rooms[i][0].getWest().setBorder(true);//LeftSide rooms

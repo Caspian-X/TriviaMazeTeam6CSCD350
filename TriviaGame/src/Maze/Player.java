@@ -1,3 +1,4 @@
+//Written By:Igor Svirgun, Griffin Foster, and Isaiah Weaver
 package Maze;
 
 import java.io.File;
@@ -7,21 +8,25 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-public class Player {
+public class Player 
+{
 	public static Scanner sc = new Scanner(System.in);
 	public static String saveFile = "GameSaves.ser";
 	private static boolean quit = false;
 	private static Maze maze = null;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		
-		while(maze == null && !quit) {
+		while(maze == null && !quit) 
+		{
 			runMenu();
 		}
-		if(maze != null) {
+		if(maze != null) 
+		{
 			
-	    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck() && !quit) {
-	    		//check to see if current room has any keys or hints
+	    	while(!maze.getCurrentRoom().isExit() && !maze.isPlayerStuck() && !quit) 
+	    	{
 	    		checkRoomForKeys();
 	    		
 	    		String playerResponse = "";
@@ -52,15 +57,18 @@ public class Player {
 	}	
 	
 	
-	private static void checkRoomForKeys() {
-		if(maze.getCurrentRoom().getRoomItem() != null){
+	private static void checkRoomForKeys() 
+	{
+		if(maze.getCurrentRoom().getRoomItem() != null)
+		{
 			if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemKey && maze.getCurrentRoom().getRoomItem().usesLeft() > 0)
 			{   				
 				RoomItemKey roomKey = (RoomItemKey)maze.getCurrentRoom().getRoomItem();
 				System.out.println(roomKey.toString());
 				roomKey.useItem();
 				maze.getRoomKeys().addItem();
-			} else if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemHint && maze.getCurrentRoom().getRoomItem().usesLeft() > 0) {
+			} else if(maze.getCurrentRoom().getRoomItem() instanceof RoomItemHint && maze.getCurrentRoom().getRoomItem().usesLeft() > 0) 
+			{
 				RoomItemHint roomHint = (RoomItemHint)maze.getCurrentRoom().getRoomItem();
 				System.out.println(roomHint.toString());
 				roomHint.useItem();
@@ -70,7 +78,8 @@ public class Player {
 	}
 	
 	
-	private static String promptScreen(boolean printMenu) {
+	private static String promptScreen(boolean printMenu) 
+	{
 		System.out.println(printMenu ? "A.New Game" : "A.Multiple Choice");
 		System.out.println(printMenu ? "B.Load Game" : "B.True/False");
 		System.out.println(printMenu ? "C.Add Questions": "C.Free Response Question");
@@ -80,9 +89,11 @@ public class Player {
 	}
 	
 	
-	private static void runMenu() {
+	private static void runMenu() 
+	{
 		String menuOption = promptScreen(true);
-		if(menuOption.toLowerCase().equals("a")) {
+		if(menuOption.toLowerCase().equals("a")) 
+		{
 			maze = new Maze(5,5);
 			maze.buildMaze();
 		}
@@ -94,15 +105,18 @@ public class Player {
 			quit = true;
 	}
 	
-	private static void addQuestion() {
+	private static void addQuestion() 
+	{
 		String typeOfQuestion = promptScreen(false);
 		
 		String[] question = new String[7];
 	
 		System.out.println("What is the question you would like to add:");
 		question[0] = sc.nextLine();
-		if(typeOfQuestion.toLowerCase().equals("a")) {
-			for(int i = 1; i < 5; i++) {
+		if(typeOfQuestion.toLowerCase().equals("a")) 
+		{
+			for(int i = 1; i < 5; i++) 
+			{
 				String letter = i == 1 ? "A" : (i == 2 ? "B" : (i == 3 ? "C" : "D"));
 				System.out.println("What would you like to add for option "+ letter + ":");
 				question[i] = letter + "." + sc.nextLine();
@@ -122,7 +136,8 @@ public class Player {
 	}
 	
 
-	private static String printPlayerOptions() {
+	private static String printPlayerOptions() 
+	{
 		System.out.println("Keys(K) : " + maze.getRoomKeys().usesLeft());
 		System.out.println("Hints(H) : " + maze.getRoomHints().usesLeft());
 		System.out.println("Move(WASD)||Save Game:R||Quit:Q");
@@ -130,7 +145,8 @@ public class Player {
 		return sc.next();
 	}
 	
-	private static boolean playerAction(String move) {
+	private static boolean playerAction(String move) 
+	{
 		
 		boolean success = true;
 		
@@ -146,7 +162,7 @@ public class Player {
     		useKey();	
     	else if(move.toLowerCase().equals("h"))
     		useHint();	
-    	else if(move.toLowerCase().equals("p")) //here is the secret button that prints the whole map
+    	else if(move.toLowerCase().equals("p"))
     		maze.printEntireMaze();
     	else if(move.toLowerCase().equals("r")) 
     		saveGame();
@@ -159,7 +175,8 @@ public class Player {
 	}
 	
 	
-	private static void useKey() {
+	private static void useKey() 
+	{
 		if(maze.getRoomKeys().usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
@@ -178,7 +195,8 @@ public class Player {
 			System.out.println("You have no keys!");
 	}
 	
-	private static void useHint() {
+	private static void useHint() 
+	{
 		if(maze.getRoomHints().usesLeft() > 0)
 		{
 			System.out.println(maze.getCurrentRoom());
@@ -198,16 +216,16 @@ public class Player {
 	}
 	
 	
-	private static void loadSavedGame() {
+	private static void loadSavedGame() 
+	{
 		try{ 
 			maze = new Maze(5,5);
-			if(new File(saveFile).exists()) {
+			if(new File(saveFile).exists()) 
+			{
 				System.out.println("Loading Game...");
 				
-				// Reading the object from a file 
 				FileInputStream file = new FileInputStream(saveFile); 
 				ObjectInputStream in = new ObjectInputStream(file); 
-				// Method for deserialization of object 
 				maze = (Maze)in.readObject(); 
 				
 				in.close(); 
@@ -216,23 +234,25 @@ public class Player {
 				System.out.println("Game Loaded");
 				System.out.println("Row = " + (maze.getPlayerPositionRow()+1));
 				System.out.println("Col = " + (maze.getPlayerPositionCol()+1));
-			}else {
+			}else 
+			{
 				System.out.println("No Save found.\nStarting New Game...");
 				maze.buildMaze(); 
 				System.out.println("Game Ready");
 			}
-		}catch(Exception e) { 
+		}catch(Exception e) 
+		{ 
 			e.printStackTrace();
-		}//end catch
+		}
 	}
 	
-	private static void saveGame() {
-		try {
-			//Saving of object in a file 
+	private static void saveGame() 
+	{
+		try 
+		{
 			FileOutputStream file = new FileOutputStream(saveFile); 
 			ObjectOutputStream out = new ObjectOutputStream(file); 
-			
-			// Method for serialization of object 
+
 			out.writeObject(maze); 
 
 			out.close(); 
@@ -241,7 +261,8 @@ public class Player {
 			System.out.println("Game Saved"); 
 			System.out.println("Row = " + maze.getPlayerPositionRow()); 
 			System.out.println("Col = " + maze.getPlayerPositionCol());
-		}catch(Exception e) { 
+		}catch(Exception e) 
+		{ 
 			e.printStackTrace();
 		} 
 	}
