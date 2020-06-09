@@ -13,7 +13,7 @@ public class Door implements Serializable
 	public Door()
 	{
 		Random ran = new Random();
-		int r = ran.nextInt(20) + 1;
+		int r = ran.nextInt(22) + 1;
 		this.question = new Question(r);
 	}
 	
