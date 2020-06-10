@@ -92,7 +92,7 @@ public class SQLiteDB
 			this.statement = connection.createStatement();
 			String stringToExecute = "INSERT INTO Questions VALUES(" + (getRowCount()+1) + ",";
 			for(int i = 0; i < question.length; i++) {
-				String singleQuotes = question[i].length() > 2 ? "'" : "";
+				String singleQuotes = i > 0 && i < 5 && question[i].length() == 2 ? "" : "'";
 				stringToExecute += singleQuotes + question[i] + singleQuotes +(i < question.length-1 ? "," : ");");
 			}
 			statement.executeUpdate(stringToExecute);
