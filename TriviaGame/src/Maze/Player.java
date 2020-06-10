@@ -261,8 +261,8 @@ public class Player
 			file.close(); 
 			
 			System.out.println("Game Saved"); 
-			System.out.println("Row = " + maze.getPlayerPositionRow()); 
-			System.out.println("Col = " + maze.getPlayerPositionCol());
+			System.out.println("Row = " + maze.getPlayerPositionRow()+1); 
+			System.out.println("Col = " + maze.getPlayerPositionCol()+1);
 		}catch(Exception e) 
 		{ 
 			e.printStackTrace();

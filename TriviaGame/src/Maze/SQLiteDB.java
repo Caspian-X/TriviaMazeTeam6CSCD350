@@ -60,7 +60,6 @@ public class SQLiteDB
 		return null;
 	}
 	
-	
 	public String getHint(int num) 
 	{
 		try 
@@ -102,7 +101,6 @@ public class SQLiteDB
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
-	
 	
 	public int getRowCount() 
 	{
