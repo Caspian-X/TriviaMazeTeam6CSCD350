@@ -1,4 +1,4 @@
-//Written By:Igor Svirgun
+//Written By:Igor Svirgun, Griffin Foster
 package Maze;
 
 import java.io.Serializable;

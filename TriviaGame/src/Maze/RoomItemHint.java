@@ -1,4 +1,4 @@
-//Written By: Isaiah Weaver
+//Written By: Isaiah Weaver , Griffin Foster
 
 package Maze;
 
