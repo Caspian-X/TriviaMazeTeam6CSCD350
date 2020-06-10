@@ -51,7 +51,10 @@ public class Player
 	    	else if(quit)
 	    		System.out.println("Winners never Quit");
 	    	else
-	    		System.out.print("Congrats you have reached the exit");
+	    		System.out.println("Congrats you have reached the exit");
+	    	System.out.println("Press Enter to Exit");
+	    	sc.nextLine();
+	    	sc.nextLine();
 		}
 		sc.close();
 	}	
@@ -261,8 +264,8 @@ public class Player
 			file.close(); 
 			
 			System.out.println("Game Saved"); 
-			System.out.println("Row = " + maze.getPlayerPositionRow()+1); 
-			System.out.println("Col = " + maze.getPlayerPositionCol()+1);
+			System.out.println("Row = " + (maze.getPlayerPositionRow()+1)); 
+			System.out.println("Col = " + (maze.getPlayerPositionCol()+1));
 		}catch(Exception e) 
 		{ 
 			e.printStackTrace();
