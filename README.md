@@ -1,2 +1,6 @@
 # TriviaMazeTeam6CSCD350
-# Isaiah Weaver, Igor Svirgun, Griffin Foster
+## Developers
+Isaiah Weaver, Igor Svirgun, Griffin Foster
+
+# Installation
+Go to the release, download "TriviaMazeInstaller.exe", run the .exe to install the game and play it.
